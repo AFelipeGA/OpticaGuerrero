@@ -2,87 +2,66 @@
   {
     "name": "Carousel",
     "class": "carousel",
-    "settings": [
+    "presets": [
       {
-        "id": "title1",
-        "type": "text",
-        "label": "Titulo 1"
-      },
-      {
-        "id": "sub1",
-        "type": "text",
-        "label": "Subtitulo 1"
-      }, 
-      {
-        "id": "image1",
-        "type": "image_picker",
-        "label": "Imagen 1"
-      },
-      {
-        "id": "title2",
-        "type": "text",
-        "label": "Titulo 2"
-      },
-      {
-        "id": "sub2",
-        "type": "text",
-        "label": "Subtitulo 2"
-      }, 
-      {
-        "id": "image2",
-        "type": "image_picker",
-        "label": "Imagen 2"
-      },
-      {
-        "id": "title3",
-        "type": "text",
-        "label": "Titulo 3"
-      },
-      {
-        "id": "sub3",
-        "type": "text",
-        "label": "Subtitulo 3"
-      }, 
-      {
-        "id": "image3",
-        "type": "image_picker",
-        "label": "Imagen 3"
+          "category": "Frontal",
+          "name": "Carousel"
       }
     ],
-    "presets": [
-        {
-            "category": "Frontal",
-            "name": "Carousel",
-            "settings": {
-            }
-        }
+    "blocks": [
+      {
+        "type": "banner",
+        "name": "Banner",
+        "settings": [
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Banner"
+          }
         ]
+      }
+    ]
   }
 {% endschema %}
 
-{% stylesheet %}
+{% stylesheet 'scss' %}
+.swiper-button-next{
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23FC5B5B'%2F%3E%3C%2Fsvg%3E");
+}
+
+.swiper-button-prev{
+     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23FC5B5B'%2F%3E%3C%2Fsvg%3E");
+}
+
+#carousel{
+    height: 100vh;
+    min-width: 100%;
+    max-width: 100%;
+    .swiper-slide{
+        img{
+            width: 100%;
+        }
+    }
+}
 {% endstylesheet %}
 
 {% javascript %}
 var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true
-    });
+  nextButton: '.swiper-button-next',
+  prevButton: '.swiper-button-prev',
+  loop: true,
+  autoplay: 3000
+});
 {% endjavascript %}
 
- <div class="swiper-container">
+ <div class="swiper-container" id="carousel">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-        <div class="swiper-slide">Slide 4</div>
-        <div class="swiper-slide">Slide 5</div>
-        <div class="swiper-slide">Slide 6</div>
-        <div class="swiper-slide">Slide 7</div>
-        <div class="swiper-slide">Slide 8</div>
-        <div class="swiper-slide">Slide 9</div>
-        <div class="swiper-slide">Slide 10</div>
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <img src="{{ block.settings.image | img_url: '1920x1280' }}">
+          </div>
+        {% endfor %}
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
 </div>
