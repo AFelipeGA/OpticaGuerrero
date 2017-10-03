@@ -1,0 +1,88 @@
+{% schema %}
+  {
+    "name": "Carousel",
+    "class": "carousel",
+    "settings": [
+      {
+        "id": "title1",
+        "type": "text",
+        "label": "Titulo 1"
+      },
+      {
+        "id": "sub1",
+        "type": "text",
+        "label": "Subtitulo 1"
+      }, 
+      {
+        "id": "image1",
+        "type": "image_picker",
+        "label": "Imagen 1"
+      },
+      {
+        "id": "title2",
+        "type": "text",
+        "label": "Titulo 2"
+      },
+      {
+        "id": "sub2",
+        "type": "text",
+        "label": "Subtitulo 2"
+      }, 
+      {
+        "id": "image2",
+        "type": "image_picker",
+        "label": "Imagen 2"
+      },
+      {
+        "id": "title3",
+        "type": "text",
+        "label": "Titulo 3"
+      },
+      {
+        "id": "sub3",
+        "type": "text",
+        "label": "Subtitulo 3"
+      }, 
+      {
+        "id": "image3",
+        "type": "image_picker",
+        "label": "Imagen 3"
+      }
+    ],
+    "presets": [
+        {
+            "category": "Frontal",
+            "name": "Carousel",
+            "settings": {
+            }
+        }
+        ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+{% endjavascript %}
+
+ <div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+        <div class="swiper-slide">Slide 10</div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
