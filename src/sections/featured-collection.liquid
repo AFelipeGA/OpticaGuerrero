@@ -1,5 +1,10 @@
 {% if section.settings.title != blank %}
-  <h2>{{ section.settings.title | escape }}</h2>
+  <br><br>
+  <div class="ui horizontal divider">
+    <h1 class="ui header">
+      {{ section.settings.title | escape }}
+    </h1>
+  </div>
 {% endif %}
 
 {%- assign collection = collections[section.settings.collection] -%}

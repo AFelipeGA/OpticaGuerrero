@@ -46,9 +46,9 @@
 {% endstylesheet %}
 
 {% javascript %}
-var swiper = new Swiper('.swiper-container', {
-  nextButton: '.swiper-button-next',
-  prevButton: '.swiper-button-prev',
+var swiper = new Swiper('#carousel', {
+  nextButton: '#next-carousel',
+  prevButton: '#prev-carousel',
   loop: true,
   autoplay: 3000
 });
@@ -62,6 +62,6 @@ var swiper = new Swiper('.swiper-container', {
           </div>
         {% endfor %}
     </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev" id="prev-carousel"></div>
+    <div class="swiper-button-next" id="next-carousel"></div>
 </div>

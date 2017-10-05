@@ -75,13 +75,76 @@
 
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
-  {% section 'header' %}
-
-  <main role="main" id="MainContent">
+  <div class="columns is-gapless" id="main-container">
+  <div class="column is-2 full-height" id="sidebar">
+    <div class="is-fullwidth has-text-centered" id="logo">
+      <h1 class="ui header">
+        <img class="ui image" src="{{ settings.logo | img_url: '256x', crop: 'center' }}">        
+      </h1>
+    </div>
+    <div class="columns is-gapless full-height">
+      <div class="column is-2 full-height has-text-centered" id="social">
+        <div class="ui fluid inverted borderless vertical icon menu " id="shopping-cart">
+          <div class="item">
+            <a class="" href="/cart">
+              <i class="shop icon"></i>
+              <div class=" ui small floating circular red label">{{ cart.item_count }}</div>
+            </a>
+          </div>
+        </div>
+        <div class="ui inverted divider"></div>
+        <div class="ui fluid inverted borderless vertical icon menu " id="social-buttons">
+          <div class="item">
+            <i class="facebook icon"></i>
+          </div>
+          <a class="item">
+            <i class="twitter icon"></i>
+          </a>
+          <a class="item">
+            <i class="instagram icon"></i>
+          </a>
+          <a class="item">
+            <i class="mail icon"></i>
+          </a>
+          <a class="item">
+            <i class="phone icon"></i>
+          </a>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui inverted fluid borderless vertical menu">
+          <div class="item" id="search">
+            <div class="ui inverted transparent icon input">
+              <input type="text" placeholder="Buscar...">
+              <i class="search icon"></i>
+            </div>
+          </div>
+          <a class="item">
+            Inicio
+          </a>
+          <a class="item">
+            Hombre
+          </a>
+          <a class="item">
+            Mujer
+          </a>
+          <a class="item">
+            Niño
+          </a>
+          <a class="item">
+            Contacto
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column full-height" id="content">
+    <!-- Aqui va el contenido-->
     {{ content_for_layout }}
-  </main>
-
-  {% section 'footer' %}
+    {% section 'footer' %}
+  </div>
+</div>
 
 </body>
 </html>
+

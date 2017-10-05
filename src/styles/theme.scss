@@ -26,3 +26,86 @@
 /*================ MODULES ================*/
 @import url('modules/site-header.scss');
 @import url('modules/gift-card-template.scss');
+
+html{
+    min-height:100%;/* make sure it is at least as tall as the viewport */
+    position:relative;
+    overflow: hidden;
+    padding:0;
+}
+body{
+    height:100%; /* force the BODY element to match the height of the HTML element */
+    overflow: hidden;
+    padding:0;
+    margin:0;
+}
+
+#main-container{
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.full-height{
+    min-height: 100%;
+    max-height: 100%;
+}
+
+#logo{
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar{
+    background-color: rgb(27,28,29);
+    overflow: hidden;
+}
+
+#content{
+    background-color: #FAFAFA;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#social{
+    background-color: #333;
+    height: 100vh;
+    #social-buttons{
+        margin: 0;
+        margin-top: -10px;
+        .item{
+            background-color: #333;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    #shopping-cart{
+        padding: 0;
+        margin: 0;
+        padding-top: 30%;
+        background-color: #333;
+        .item{
+            background-color: #333;
+            padding: 0;
+        }
+    }
+}
+
+#search{
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    .input{
+       background-color: transparent;
+       border-color: transparent;
+       border-bottom-color: #333;
+       width: 90%;
+       margin-left: 5%;
+       margin-right: 5%;
+       input{
+           width: 100%;
+           padding-right: 10% !important;
+       }
+    }
+}

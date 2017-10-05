@@ -1,0 +1,84 @@
+{% schema %}
+  {
+    "name": "Marcas",
+    "class": "brands",
+    "presets": [
+      {
+          "category": "Frontal",
+          "name": "Marcas"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "brand",
+        "name": "Marca",
+        "settings": [
+          {
+            "id": "name",
+            "type": "text",
+            "label": "Nombre"
+          },
+          {
+            "id": "logo",
+            "type": "image_picker",
+            "label": "Logo"
+          },
+          {
+            "id": "collection",
+            "type": "collection",
+            "label": "Colección"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet 'scss' %}
+
+#brands{
+    margin: 15px 15px;
+    .swiper-slide{
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img{
+        max-height: 100px;
+        //-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        // filter: grayscale(100%);
+    }
+}
+
+{% endstylesheet %}
+
+{% javascript %}
+var swiper = new Swiper('#brands', {
+  loop: true,
+  autoplay: 3000,
+  initialSlide: 1,
+  slidesPerView: 5,
+  spaceBetween: 20,
+  centeredSlides: true
+});
+{% endjavascript %}
+
+<br>
+<div class="ui horizontal divider">
+  <h1 class="ui header">
+    Nuestras Marcas
+  </h1>
+</div>
+
+ <div class="swiper-container" id="brands">
+    <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <a href="/collections/{{block.settings.collection}}">
+                <img src="{{ block.settings.logo | img_url: 'medium' }}">
+            </a>
+          </div>
+        {% endfor %}
+    </div>
+</div>
