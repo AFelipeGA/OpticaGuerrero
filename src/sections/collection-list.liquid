@@ -11,7 +11,7 @@
     {% for block in section.blocks limit: section.blocks.size %}
       {%- assign collection = collections[block.settings.collection] -%}
       <div class="column">
-        <div class="fluid raised card">
+        <a class="ui red fluid card" href="{{ collection.url }}">
           <div class="image">
             <img src="{{ collection.image.src | img_url: '1080x720', crop: 'center' }}">
           </div>
@@ -24,7 +24,7 @@
               {{collection.description}}
             </div>
           </div>
-        </div>
+        </a>
       </div>
     {% endfor %}
   </div>
@@ -83,6 +83,7 @@
   .collections{
     margin: 5% !important;
     .card{
+      height: 100%;
       .content{
         padding: 5%;
         .header{
@@ -90,8 +91,12 @@
         }
         .meta{
           font-weight: lighter;
+          font-size: 0.7em;
           color: #666;
         }
+        .description{
+          font-size: 80%;
+        } 
       }
     }
   }
