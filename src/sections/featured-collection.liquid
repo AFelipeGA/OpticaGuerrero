@@ -7,58 +7,105 @@
 {% endif %}
 
 {%- assign collection = collections[section.settings.collection] -%}
-<div class="swiper-container featured-products">
-  <div class="swiper-wrapper">
-      {% for product in collection.products limit: 8 %}
-        <div class="swiper-slide slide-product">
-          <div class="ui raised card">
-            <a href="{{ product.url | within: collection }}">  
-              <div class="ui fade masked reveal image">
-                <img src="{{ product.images[0].src | product_img_url: 'medium' }}" class="visible content">
-                <img src="{{ product.images[1].src | product_img_url: 'medium' }}" class="hidden content">
-              </div>
-            </a>
-            <div class="content">
-              <div class="ui purple ribbon label"><i class="star icon"></i>Mas vendido</div>
-              <br><br>
-              <a class="header">{{product.title}}</a>
-              <div class="description">
-                {{product.description | truncatewords: 14}}
-              </div>
-            </div>
-            <div class="extra content">
-              <div class="ui big label">
-                <i class="tag icon"></i><span class="no-deal">$220.00</span> 
-              </div>
-              <button class="ui right floated compact red inverted circular icon button">
-                <i class="add to cart large icon"></i>
-              </button>
-            </div>
-          </div>
+
+<div class="featured-products" id="{{section.settings.title | handleize}}">
+  {% for product in collection.products limit: 9 %}
+    <div class="ui raised card">
+      <a href="{{ product.url | within: collection }}">  
+        <div class="ui fade masked reveal image">
+          <img src="{{ product.images[0].src | product_img_url: 'medium' }}" class="visible content">
+          <img src="{{ product.images[1].src | product_img_url: 'medium' }}" class="hidden content">
         </div>
-      {% endfor %}
-  </div>
+      </a>
+      <div class="content">
+        {% assign date_published = product.published_at | date:'%Y%m%d' %}
+        {% assign date_now = 'now' | date:'%Y%m%d' %}
+        {% assign date_difference = date_now | minus: date_published %}
+        {% assign productCollections = product.collections | map:'title' %}
+        {% if date_difference < 1 %}
+          <div class="ui blue ribbon label"><i class="fire icon"></i>Nueva</div>
+        {% elsif product.compare_at_price_max > product.price %}
+          <div class="ui red ribbon label"><i class="percent icon"></i>Oferta</div>
+        {% elsif productCollections contains 'Destacados'%}
+          <div class="ui purple ribbon label"><i class="star icon"></i>Destacado</div>
+        {% elsif product.tags contains 'Polarizada'%}
+          <div class="ui black ribbon label"><i class="sun icon"></i>Polarizada</div>
+        {% endif %}
+        <br><br>
+        <a class="header">{{product.title}}</a>
+        <div class="meta">
+          <a href="/collections/{{product.vendor}}">{{product.vendor}}</a> | 
+          {% if product.tags contains 'Hombre' %}
+            <a href="/collections/hombre">Hombre</a>
+          {% else %}
+            <a href="/collections/mujer">Mujer</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="extra content">
+        {% if product.compare_at_price_max > product.price %}
+          <div class="ui big label">
+            <i class="ui tag icon"></i><span class="cross">{{product.compare_at_price_max | money}}</span><span class="deal">{{product.price | money}}</span> 
+          </div>
+        {% else %}
+          <div class="ui big label">
+            <i class="ui tag icon"></i><span class="no-deal">{{product.price | money}}</span> 
+          </div>
+        {% endif %}
+        {% if product.available %}
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}"/>
+            <input type="hidden" name="return_to" value="back" />
+            <input type="submit" value="Buy now" class="ui red button"/>
+          </form>
+        {% else %}
+          <a href="" class="ui disabled right floated red inverted circular icon button">
+            <i class="add to cart large icon"></i>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
 </div>
 
-{% javascript %}
-var swiper = new Swiper('.featured-products', {
-  loop: true,
-  slidesPerView: 4,
-  spaceBetween: 20
-});
+{% javascript %}	
 {% endjavascript %}
+
+<script>
+$('#{{section.settings.title | handleize}}').slick({
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  zIndex: 100000
+});
+</script>
+
 
 {% stylesheet 'scss' %} 
   .featured-products{
-    margin: 25px 15px;
-    .slide-product{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .card{
-        height: 400px!important;
+    margin: 25px 30px;
+    a:hover{
+      color: #ef303b !important;
+    }
+    .card{
+      margin-right: 15px!important;
+      margin-left: 25px!important;
+      .tag{
+        background-color: transparent!important;
+        font-size: 1rem!important; 
+      }
+      .deal{
+        margin-left: 10px;
+        color: rgb(252, 91, 91);
+      }
+      .cross{
+          text-decoration: line-through;
+          font-size: 14px;
       }
     }
+  }
+  .slick-next:before, .slick-prev:before{
+    color: #ef303b;
   }
 {% endstylesheet %}
 
