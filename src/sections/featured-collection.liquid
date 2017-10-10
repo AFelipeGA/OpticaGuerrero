@@ -10,8 +10,8 @@
 <div class="swiper-container featured-products">
   <div class="swiper-wrapper">
       {% for product in collection.products limit: 8 %}
-        <div class="swiper-slide">
-          <div class="ui card">
+        <div class="swiper-slide slide-product">
+          <div class="ui raised card">
             <a href="{{ product.url | within: collection }}">  
               <div class="ui fade masked reveal image">
                 <img src="{{ product.images[0].src | product_img_url: 'medium' }}" class="visible content">
@@ -21,9 +21,9 @@
             <div class="content">
               <div class="ui purple ribbon label"><i class="star icon"></i>Mas vendido</div>
               <br><br>
-              <a class="header">Oakley Holbrook Metal Prism</a>
-              <div class="meta">
-                Descripcion del producto o algo
+              <a class="header">{{product.title}}</a>
+              <div class="description">
+                {{product.description | truncatewords: 14}}
               </div>
             </div>
             <div class="extra content">
@@ -43,10 +43,24 @@
 {% javascript %}
 var swiper = new Swiper('.featured-products', {
   loop: true,
-  slidesPerView: 3,
+  slidesPerView: 4,
   spaceBetween: 20
 });
 {% endjavascript %}
+
+{% stylesheet 'scss' %} 
+  .featured-products{
+    margin: 25px 15px;
+    .slide-product{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .card{
+        height: 400px!important;
+      }
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
   {
