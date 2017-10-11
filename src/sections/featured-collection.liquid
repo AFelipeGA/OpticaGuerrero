@@ -53,14 +53,12 @@
           </div>
         {% endif %}
         {% if product.available %}
-          <form method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}"/>
-            <input type="hidden" name="return_to" value="back" />
-            <input type="submit" value="Buy now" class="ui red button"/>
-          </form>
+          <button class="ui huge right floated red inverted circular icon button add-button" data-cart-add="{{ product.variants.first.id }}">
+            <i class="add to cart icon"></i>
+          </button>
         {% else %}
-          <a href="" class="ui disabled right floated red inverted circular icon button">
-            <i class="add to cart large icon"></i>
+          <button class="ui disabled big inverted right floated red icon button add-button">
+            <i class="add to cart icon"></i>
           </button>
         {% endif %}
       </div>
@@ -90,6 +88,16 @@ $('#{{section.settings.title | handleize}}').slick({
     .card{
       margin-right: 15px!important;
       margin-left: 25px!important;
+      .extra.content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .label{
+        float: left;
+        margin-right: auto;
+        margin-bottom: 0;
+      }
       .tag{
         background-color: transparent!important;
         font-size: 1rem!important; 
@@ -101,6 +109,13 @@ $('#{{section.settings.title | handleize}}').slick({
       .cross{
           text-decoration: line-through;
           font-size: 14px;
+      }
+      .add-button{
+        padding: 0!important;
+        height: 40px!important;
+        width: 40px!important;
+        float: right;
+        margin-left: auto;
       }
     }
   }
