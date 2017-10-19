@@ -11,12 +11,10 @@
 <div class="featured-products" id="{{section.settings.title | handleize}}">
   {% for product in collection.products limit: 9 %}
     <div class="ui raised card">
-      <a href="{{ product.url | within: collection }}">  
-        <div class="ui fade masked reveal image">
-          <img src="{{ product.images[0].src | product_img_url: 'medium' }}" class="visible content">
-          <img src="{{ product.images[1].src | product_img_url: 'medium' }}" class="hidden content">
-        </div>
-      </a>
+      <div class="ui fade masked reveal image">
+        <img src="{{ product.images[0].src | product_img_url: 'medium' }}" class="visible content">
+        <img src="{{ product.images[1].src | product_img_url: 'medium' }}" class="hidden content">
+      </div>
       <div class="content">
         {% assign date_published = product.published_at | date:'%Y%m%d' %}
         {% assign date_now = 'now' | date:'%Y%m%d' %}
@@ -53,7 +51,7 @@
           </div>
         {% endif %}
         {% if product.available %}
-          <button class="ui huge right floated red inverted circular icon button add-button" data-cart-add="{{ product.variants.first.id }}">
+          <button class="ui huge right floated red inverted circular icon button add-button" data-cart-add="{{ product.variants.first.id }}"> 
             <i class="add to cart icon"></i>
           </button>
         {% else %}
