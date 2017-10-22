@@ -116,3 +116,10 @@ body{
     height: 40px!important;
     width: 40px!important;
   }
+
+  .centered{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+    text-align: center;
+  }
