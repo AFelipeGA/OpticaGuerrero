@@ -154,43 +154,50 @@
 
   <div id="modal">
     <div class="container is-fluid">
-      <table data-cart-view="data-cart-view" class"ui basic celled table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th colspan="2">Qty</th>
-                <th>Line Price</th>
-            </tr>
-        </thead>
+      <table data-cart-view="data-cart-view" class="ui very basic single line table">
         <tbody>
-          <tr rv-each-item="cart.items">
-              <td>
-                <strong rv-text="item.title"></strong>
-                <ul rv-hide="item.propertyArray | empty">
-                    <li rv-each-property="item.propertyArray < properties">
-                        <small class="text-muted">{property.name}: {property.value}</small>
-                    </li>
-                </ul>
+          <tr rv-each-item="cart.items" class="center aligned">
+              <td class="six wide" style="vertical-align: middle;">
+                <h4 class="ui image header cart-header">
+                  <a rv-href="item.url">
+                    <img rv-src="item.image" class="cart-image">
+                  </a>
+                  <div class="content">
+                    <a rv-href="item.url" rv-text="item.title"></a>
+                    <div class="sub header"><a rv-href="item.vendor | vendor_url">{item.vendor}</a>
+                  </div>
+                </h4>
+                
               </td>
-              <td rv-html="item.price | money Currency.currentCurrency"></td>
-              <td>
-                  <a href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">-</a>
-                  <span rv-text="item.quantity"></span>
-                  <a href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">+</a>
+              <td class="two wide" style="vertical-align: middle;" rv-html="item.price | money"></td>
+              <td class="four wide" style="vertical-align: middle;">
+                  <button class="ui red icon button cart-button" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">
+                    <i class="minus icon"></i>
+                  </button>                  
+                  <span rv-text="item.quantity" class="cart-quantity"></span>
+                  <button class="ui red icon button cart-button" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">
+                    <i class="plus icon"></i>
+                  </button>
               </td>
-              <td>
-                  <a href="#" rv-data-cart-remove="index | plus 1">&times;</a>
+              <td class="two wide" style="vertical-align: middle;">
+                  <button class="negative ui icon button cart-button" rv-data-cart-remove="index | plus 1">
+                    <i class="remove icon"></i>
+                  </button>
               </td>
-              <td rv-html="item.line_price | money Currency.currentCurrency"></td>
+              <td class="two wide" style="vertical-align: middle;" rv-html="item.line_price | money"></td>
           </tr>
-          <tr rv-show="cart.item_count | lt 1">
-              <td colspan="5">You don't have any items in your cart.</td>
-          </tr>
+          <div rv-show="cart.item_count | lt 1" class="container is-fluid center aligned">
+            <h2 class="ui huge icon header" id="cart-empty">
+              <i class="frown icon"></i>
+              <div class="content">
+                Carrito Vacío
+                <div class="sub header">No has añadido productos al carrito. Buscalos <a href="/collections/all" id="search-here">aquí</a></div>
+              </div>
+            </h2> 
+          </div>
         </tbody>
         <tfoot rv-show="cart.item_count | gt 0">
             <tr>
-                <td colspan="4" rv-html="cart.total_weight | weight_with_unit"></td>
                 <td rv-html="cart.total_price | money Currency.currentCurrency"></td>
             </tr>
         </tfoot>
@@ -205,7 +212,11 @@
         icon: 'fa fa-shopping-cart',
         radius: 10,
         headerColor: "#ef303b",
-        transitionIn: 'bounceInDown'
+        transitionIn: 'bounceInDown',
+        transitionOut: 'bounceOutUp',
+        width: '60%',
+        top: '75',
+        bottom: '75'
       });
       $(".shopping-cart").click(function(event){
         event.preventDefault();
@@ -219,6 +230,12 @@
       });
     });
     $(function() {
+      rivets.formatters.vendor_url = function(vendor) {
+        return '/collections/' + vendor;
+      }
+      rivets.formatters.money = function(price){
+        return `\$ ${price.toString().slice(0,-2)},${price.toString().slice(-2)}`;
+      }
       CartJS.init({{ cart | json }});
       $(document).on('cart.requestComplete', function(event, cart) {
         $("#counter").html(cart.item_count);
