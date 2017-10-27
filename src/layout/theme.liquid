@@ -186,19 +186,26 @@
               </td>
               <td class="two wide" style="vertical-align: middle;" rv-html="item.line_price | money"></td>
           </tr>
-          <div rv-show="cart.item_count | lt 1" class="container is-fluid center aligned">
-            <h2 class="ui huge icon header" id="cart-empty">
-              <i class="frown icon"></i>
-              <div class="content">
-                Carrito Vacío
-                <div class="sub header">No has añadido productos al carrito. Buscalos <a href="/collections/all" id="search-here">aquí</a></div>
-              </div>
-            </h2> 
-          </div>
         </tbody>
-        <tfoot rv-show="cart.item_count | gt 0">
+        <tfoot>
             <tr>
-                <td rv-html="cart.total_price | money Currency.currentCurrency"></td>
+                <td id="footer-total" colspan="5" rv-show="cart.item_count | gt 0">
+                  <strong id="total-price" rv-html="cart.total_price | money Currency.currentCurrency"></strong>
+                  <a class="ui red button right floated" id="checkout-button" href="/checkout">
+                    Pagar
+                  </a>
+                </td>
+                <td rv-show="cart.item_count | lt 1">
+                  <div class="center aligned">
+                    <h2 class="ui huge icon header" id="cart-empty">
+                      <i class="frown icon"></i>
+                      <div class="content">
+                        Carrito Vacío
+                        <div class="sub header">No has añadido productos al carrito. Buscalos <a href="/collections/all" id="search-here">aquí</a></div>
+                      </div>
+                    </h2> 
+                  </div>
+                </td>
             </tr>
         </tfoot>
       </table>
